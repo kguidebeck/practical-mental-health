@@ -1,256 +1,34 @@
-# Elegant Seagull's Next.js Starter
-[![Next.js](https://img.shields.io/badge/Next.js-12.0.7-success)](https://nextjs.org/)
-[![Node](https://img.shields.io/badge/Node->=16.13-success)](https://nodejs.org/docs/latest-v16.13/api/index.html)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Getting Started
+
+First, run the development server:
 
 ```bash
-# install
-yarn install
-
-# run
+npm run dev
+# or
 yarn dev
 ```
 
-## ENV Variables
-Located in `./.env`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- `NEXT_PUBLIC_SITE_URL` - used to transform absolute links when applicable (omit `https://www`. ex: `elegantseagulls.com`)
-- `NEXT_PUBLIC_NO_INDEX` - prevent search engines from crawling the website
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-### Recommended variables
-- CMS/API urls
-- API Access Tokens
-- Anything that shouldn't be stored in github or visible on the front-end. *Remember that variables used on the front-end will be visible in bundled code.*
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Aliased Files/Directories
-- **styles** &rarr; src/styles
-- **util** &rarr; src/util
-- **components** &rarr; src/components
-- **hooks** &rarr; src/hooks
+## Learn More
 
-**Example aliasing**
-```jsx
-/* src/components/MyComponent.js */
-import React from 'react';
+To learn more about Next.js, take a look at the following resources:
 
-const MyComponent = () => <div>I'm a Component</div>
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-export default MyComponent;
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-/* src/pages/MyPage.js */
-import React from 'react';
-import MyComponent from 'components/MyComponent';
+## Deploy on Vercel
 
-const MyPage = () => (
-  <div>
-    <p>I'm a Page</p>
-    <MyComponent />
-  </div>
-);
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-export default MyPage;
-```
-
-## 3rd Party Resources
-- [Next.js](https://nextjs.org/docs)
-- [Styled Components](https://styled-components.com/)
-- [Polished](https://polished.js.org/)
-- [Superior MQ](https://github.com/jbsmith731/superior-media-query)
-- [Next SEO](https://github.com/garmeeh/next-seo)
-
-## Components
-- [Container](#container)
-- [Grid](#grid)
-- [Heading](#heading)
-- [InlineLink](#inlinelink)
-- [Button](#button)
-- [RatioImg](#ratioimg)
-- [LazyImg](#lazyimg)
-- [UnstyledButton](#unstyledbutton)
-- [UnstyledList](#unstyledlist)
-- [VisuallyHidden](#visuallyhidden)
-
-### Container
-CSS custom property `--container-width` set in `./app/styles/global-style.js`
-```jsx
-<Container />
-```
-
-### Grid
-**Grid props**
-
-Prop	    | Type                         | Default           |
----	    |---	                           |---	               |
-position |`[static, relative, absolute]` |relative           |
-cols   	|number   	                     |`12` |
-
-#### Usecase example:
-Sometimes `<Grid>` is nested directly inside of `<Container>`. To reduce the number of divs use styled components `as` prop.
-
-**Bad**
-```jsx
-<Container>
-  <Grid>
-    ...
-  </Grid>
-</Container>
-```
-
-**Good**
-```jsx
-<Grid as={Container}>
-  /* code goes here */
-</Grid>
-```
-
-**Grid.Item props**
-
-Prop	| Type  | Default |
----	  |---	  |---	    |
-span  |number |1        |
-
-```jsx
-<Grid cols={12} />
-<Grid.Item span={4} />
-```
-
-### Heading
-Named exports for all heading levels (h1-h6)
-```jsx
-import { H1 } from './H';
-
-<H1>I'm a h1</H1>
-
-${/* h1 style but h2 level */}
-<H1 as="h2">I look like h1 but I&#39;m really a h2</H1>
-```
-
-### InlineLink
-Transforms external links to relavtive links for next router. Requires `SITE_URL` defined in `./.env`
-
-**InlineLink props**
-
-|Prop	    | Type          | Default     |
-|---	    |---	          |---	        |
-|href     |string         |`undefined`  |
-|children |string or node |`undefined`  |
-
-```jsx
-<InlineLink href="https://elegantseagulls.com">Elegant Seagulls</InlineLink>
-```
-
-### Button
-Returns the correct tag based on props passed. If `href` is passed an `a` tag will be returned otherwise a `button` tag will be returned.
-
-### RatioImg
-Forces aspect ratio based on `width` and `height` props. These properties do not define the literal width and height. `styles` and `as` props will be applied to `<RatioImg>` component. `...rest` will be passed to the `<img>`.
-
-**RatioImg props**
-
-|Prop	        | Type              | Default    | Info                           |
-|---	        |---	              |---	       |---                             |
-|src          |string             |`undefined` |                                |
-|srcSet       |string             |`undefined` |                                |
-|picture      |array              |`undefined` |                                |
-|width        |number             |`undefined` |                                |
-|height       |number             |`undefined` |                                |
-|imageStyles  |string             |`undefined` | Styles passed to image element |
-|as           |string             |`div`       | Wrapper html element           |
-|alt          |string             |`undefined` |                                |
-
-```jsx
-<RatioImg
-  width={466}
-  height={570}
-  src={`${block.fields.photo.fields.file.url}?w=466&h=570&fit=thumb&q=80&fm=jpg&fl=progressive`}
-  alt={block.fields.photo.fields.description}
-  picture={[
-    {
-      srcSet: `${block.fields.photo.fields.file.url}?w=608&h=450&fit=thumb&q=80&fm=jpg&fl=progressive`,
-      media: '(max-width: 580px)',
-      width: 608,
-      height: 450,
-    },
-  ]}
-/>
-```
-
-```jsx
-import styled from 'styled-components';
-
-const MyImage = styled(RatioImg)`
-  max-width: 500px;
-`;
-
-<MyImage
-  src="https://source.unsplash.com"
-  // ...remaining props...
-/>
-```
-
-### LazyImg
-Prevent images from loading until they're in the viewport. Depends on `react-interesection-observer`.
-
-**LazyImg props**
-
-|Prop	        | Type              | Default    | Info                           |
-|---	        |---	              |---	       |---                             |
-|src          |string             |`undefined` |                                |
-|srcSet       |string             |`undefined` |                                |
-|picture      |array              |`undefined` |                                |
-|width        |number             |`undefined` |                                |
-|height       |number             |`undefined` |                                |
-|imageStyles  |string             |`undefined` | Styles passed to image element |
-|as           |string             |`div`       | Wrapper html element           |
-|alt          |string             |`undefined` |                                |
-|bottomOffset |`[string, number]` | 250px      | Distance from viewport when image is loaded |
-
-```jsx
-<LazyImg
-  width={466}
-  height={570}
-  src={`${photo.fields.file.url}?w=466&h=570`}
-  alt={photo.fields.description}
-  picture={[
-    {
-      srcSet: `${photo.fields.file.url}?w=608&h=450`,
-      media: '(max-width: 580px)',
-      width: 608,
-      height: 450,
-    },
-  ]}
-/>
-```
-
-### UnstyledButton
-Removes all default styling from the `<button>` element (including iOS & browser specific styles). Use `<UnstyledButton>` instead of adding click events to `<a>` or `<div>`.
-```jsx
-<UnstyledButton />
-```
-
-### UnstyledList
-Removes all default styling from the `<ul>` element. `<UnstyledList.Item>` defaults to `inline-block`.
-
-**UnstyledList.Item props**
-
-|Prop	  | Type  | Default   |
-|---	  |---	  |---	      |
-|display |`[inline, inline-block, block]` |`inline-block` |
-
-```jsx
-<UnstyledList />
-<UnstyledList.Item />
-```
-
-### VisuallyHidden
-Visually hide an element while keeping is accessible for screen reader
-
-**VisuallyHidden props**
-
-|Prop	  | Type  | Default   |
-|---	  |---	  |---	      |
-|as |string |`div` |
-
-```jsx
-<VisuallyHidden as="span" />
-```
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
